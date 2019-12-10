@@ -4,15 +4,8 @@ module.exports = function (grunt) {
 
     sass: {
       options: {
-        implementation: require('node-sass'),
         sourceMap: false,
-        outputStyle: 'compressed',
-        functions: {
-          'inline-svg': require('sass-inline-svg')('./svg', {
-            optimize: true,
-            encodingFormat: 'uri'
-          })
-        }
+        outputStyle: 'compressed'
       },
 
       theme: {
@@ -38,7 +31,7 @@ module.exports = function (grunt) {
     postcss: {
       options: {
         processors: [
-          require('autoprefixer')()
+          require('autoprefixer')({ browsers: 'last 2 versions' })
         ]
       },
 

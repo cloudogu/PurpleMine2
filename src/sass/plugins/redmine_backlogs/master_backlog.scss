@@ -160,7 +160,7 @@ $story-sp-input-width:          50px;
     position: relative;
     margin: 0 0 ($padding-side / 2);
     border-radius: $border-radius-large $border-radius-large 0 0;
-    background-color: $gray-100;
+    background-color: $gray-lightest;
 
     @media screen and (min-width: $screen-md-min) {
       margin: 0 0 $padding-side;
@@ -189,10 +189,9 @@ $story-sp-input-width:          50px;
 
       &:focus {
         border-color: lighten($header-bg, 25%);
-        box-shadow:
-          inset 0 1px 3px rgba(0, 0, 0, .2),
-          0 0 0 1px lighten($header-bg, 25%);
-        color: $gray-950;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2),
+              0 0 0 1px lighten($header-bg, 25%);
+        color: $gray-darkest;
       }
     }
 
@@ -280,7 +279,7 @@ $story-sp-input-width:          50px;
         $name-width-minus: $header-right-width-wider + 35px;
 
         position: relative;
-        width: calc(100% - #{$name-width-minus}) !important; // stylelint-disable-line declaration-no-important
+        width: calc(100% - #{$name-width-minus}) !important; // scss-lint:disable ImportantRule
         min-width: 128px;
         margin-left: $header-line-height - 2px;
         float: left;
@@ -342,7 +341,7 @@ $story-sp-input-width:          50px;
         box-shadow: 0 2px 1px rgba(#000, .1);
 
         a {
-          color: $gray-900;
+          color: $gray-darker;
         }
       }
 
@@ -435,7 +434,7 @@ $story-sp-input-width:          50px;
 
     .placeholder {
       min-height: ($line-height-computed + $table-condensed-cell-padding * 2);
-      background-color: $gray-700;
+      background-color: $gray;
     }
   }
 
@@ -443,14 +442,14 @@ $story-sp-input-width:          50px;
     display: block;
     margin: 0;
     padding: 0 $table-condensed-cell-padding;
-    border-top: 1px solid $gray-400;
+    border-top: 1px solid $gray-lighter;
     background-color: $body-bg;
     background-repeat: no-repeat;
     background-position: center;
     cursor: move;
 
     &:nth-child(2n) {
-      background-color: $gray-100;
+      background-color: $gray-lightest;
     }
 
     &:hover {
@@ -459,7 +458,7 @@ $story-sp-input-width:          50px;
 
     &.saving {
       background-image: url("images/ajax.gif");
-      color: $gray-600;
+      color: $gray-light;
     }
 
     &.error {
@@ -486,8 +485,8 @@ $story-sp-input-width:          50px;
             background-color: $tracker-default-bg;
             color: $tracker-default-text;
           } @else {
-            background-color: darken($gray-100, 3%);
-            color: $gray-800;
+            background-color: darken($gray-lightest, 3%);
+            color: $gray-dark;
           }
           font-weight: $font-weight-bold;
           text-align: right;
@@ -498,16 +497,16 @@ $story-sp-input-width:          50px;
             @if $color-trackers {
               color: mix($tracker-default-text, $tracker-default-bg, 50%);
             } @else {
-              color: $gray-600;
+              color: $gray-light;
             }
-            font-weight: $font-weight-normal;
+            font-weight: normal;
           }
 
           &:hover {
             @if $color-trackers {
               background-color: darken($tracker-default-bg, 10%);
             } @else {
-              background-color: $gray-400;
+              background-color: $gray-lighter;
             }
             text-decoration: none;
           }
@@ -593,10 +592,9 @@ $story-sp-input-width:          50px;
 
         &:focus {
           border-color: darken($highlight-border, 15%);
-          box-shadow:
-            inset 0 1px 2px rgba(0, 0, 0, .075),
-            0 0 5px rgba(darken($highlight-border, 15%), .5);
-          color: $gray-950;
+          box-shadow: inset 0 1px 2px rgba(0, 0, 0, .075),
+                0 0 5px rgba(darken($highlight-border, 15%), .5);
+          color: $gray-darkest;
         }
       }
 
@@ -645,7 +643,7 @@ $story-sp-input-width:          50px;
         &.subject {
           $subject-width-minus: $story-status-input-width + $story-sp-input-width + 5px * 2;
 
-          width: calc(100% - #{$subject-width-minus}) !important; // stylelint-disable-line declaration-no-important
+          width: calc(100% - #{$subject-width-minus}) !important; // scss-lint:disable ImportantRule
           height: 60px;
           float: left;
           overflow: auto;
@@ -757,10 +755,9 @@ $story-sp-input-width:          50px;
       @include button-size($input-padding-vertical, $input-padding-horizontal, $font-size-base, $line-height-base, $border-radius-base);
       display: inline-block;
       margin-bottom: 0;
-      transition:
-        background-color ease-in-out .07s,
-        border-color ease-in-out .07s,
-        box-shadow ease-in-out .07s;
+      transition: background-color ease-in-out .07s,
+                  border-color ease-in-out .07s,
+                  box-shadow ease-in-out .07s;
       border: 1px solid;
       font-weight: $btn-font-weight;
       text-align: center;
@@ -824,7 +821,7 @@ $story-sp-input-width:          50px;
 
 #show_completed_sprints {
   margin-left: $padding-side / 2;
-  color: $gray-950;
+  color: $gray-darkest;
   cursor: pointer;
 }
 

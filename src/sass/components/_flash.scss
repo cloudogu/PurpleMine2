@@ -8,7 +8,6 @@
 .nodata,
 .warning,
 .conflict {
-  @extend %fa-icon;
   margin-bottom: $line-height-computed;
   padding: $padding-large-vertical $padding-large-horizontal;
   padding-left: $padding-large-horizontal + 8px + 16px;
@@ -17,32 +16,40 @@
   background-repeat: no-repeat;
   background-position: $padding-large-horizontal 50%;
 
-  &::before {
-    margin-left: -(8px + 16px);
-    float: left;
-    line-height: $line-height-computed;
+  @if $use-font-awesome {
+    @extend %fa-icon;
+
+    &::before {
+      margin-left: -(8px + 16px);
+      float: left;
+      line-height: $line-height-computed;
+    }
   }
 
-  > :last-child {
+  >:last-child {
     margin-bottom: 0;
   }
 }
 
 @mixin flash($color, $background, $border, $link, $icon) {
-  border-color: $border;
-  background-color: $background;
   color: $color;
+  background-color: $background;
+  border-color: $border;
 
-  @if $icon == "true" {
-    $icon: $fa-var-check;
-  } @else if $icon == "warning" {
-    $icon: $fa-var-warning;
-  } @else if $icon == "exclamation" {
-    $icon: $fa-var-exclamation-circle;
-  }
+  @if $use-font-awesome {
+    @if $icon == "true" {
+      $icon: $fa-var-check;
+    } @elseif $icon == "warning" {
+      $icon: $fa-var-warning;
+    } @elseif $icon == "exclamation" {
+      $icon: $fa-var-exclamation-circle;
+    }
 
-  &::before {
-    content: $icon;
+    &::before {
+      content: $icon;
+    }
+  } @else {
+    background-image: url(../../../images/#{$icon}.png);
   }
 
   a {
@@ -70,15 +77,11 @@
   padding-left: $padding-large-horizontal;
   text-align: center;
 
-  &.nodata-left {
+  @if $use-font-awesome {
     &::before {
-      float: left;
+      margin-left: 0;
+      float: none;
     }
-  }
-
-  &::before {
-    margin-left: 0;
-    float: none;
   }
 }
 

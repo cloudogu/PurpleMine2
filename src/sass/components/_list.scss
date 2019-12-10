@@ -2,11 +2,6 @@
 // Lists
 // --------------------------------------------------
 
-table {
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-
 table.list {
   width: 100%;
   margin-bottom: $line-height-computed;
@@ -25,17 +20,22 @@ table.list {
     padding: $table-cell-padding;
     border: 2px solid $table-border-color;
     border-width: $table-list-header-border;
-    background-color: $body-bg;
-    color: $gray-700;
+    color: $gray;
     vertical-align: bottom;
 
     a {
-      color: $gray-900;
+      color: $gray-darker;
     }
   }
 
   tr.ui-sortable-helper {
     background-color: $highlight-bg;
+  }
+
+  @if $table-list-highlight-rows {
+    > tbody > tr:hover {
+      background-color: $table-bg-hover;
+    }
   }
 
   td {
@@ -45,50 +45,31 @@ table.list {
     text-align: center;
     vertical-align: top;
 
-    &.icon {
-      padding-left: $table-cell-padding + 20px;
-    }
-
-    &.id,
-    &.issue_id,
-    &.legacy_id,
-    &.parent,
-    &.relations,
-    &.tracker {
-      width: 2%;
-    }
-
-    &.id,
-    &.issue_id,
-    &.legacy_id {
-      font-weight: $font-weight-bold;
-    }
-
-    &.reorder {
-      white-space: nowrap;
-    }
-
-    &.attachments a {
-      display: block;
-    }
-  }
-
-  th,
-  td {
     &.checkbox {
       width: 15px;
-      padding-right: $table-cell-padding;
-      padding-left: $table-cell-padding;
+      padding: $table-cell-padding 0 0;
 
       input {
         margin: 2px 0 0;
       }
     }
 
-    &.activity,
+    &.id,
+    &.parent,
+    &.relations,
+    &.tracker {
+      width: 2%;
+    }
+
+    &.id {
+      font-weight: $font-weight-bold;
+      text-align: right;
+    }
+
     &.assigned_to,
     &.attachments,
     &.author,
+    &.activity,
     &.category,
     &.comments,
     &.description,
@@ -103,20 +84,25 @@ table.list {
     &.string,
     &.subject,
     &.text,
-    &.tracker,
     &.user {
       text-align: left;
     }
 
-    &.id,
-    &.legacy_id,
     &.estimated_hours,
-    &.float,
-    &.int,
     &.remaining_hours,
     &.spent_hours,
-    &.story_points {
+    &.story_points,
+    &.int,
+    &.float {
       text-align: right;
+    }
+
+    &.reorder {
+      white-space: nowrap;
+    }
+
+    &.attachments a {
+      display: block;
     }
   }
 
@@ -128,10 +114,6 @@ table.list {
 
       a {
         padding-right: 5px;
-
-        &.icon-only {
-          padding: 0;
-        }
       }
 
       img {
@@ -161,18 +143,19 @@ tr.project {
   &.archived,
   &.closed a,
   &.archived a {
-    color: $gray-600;
+    color: #aaa;
   }
 
-  &.idnt td.name {
-    background-image: inline-svg("chevron-right.svg", (path: (fill: $gray-600)));
+  &.idnt .name span {
+    @extend %image-arrow-right;
+    padding-left: 16px;
     background-repeat: no-repeat;
+    background-position: -5px 50%;
   }
 
   @for $i from 1 through 9 {
-    &.idnt-#{$i} td.name {
-      padding-left: $table-cell-padding + 16px * $i;
-      background-position: ($table-cell-padding + 16px * ($i - 1) - 3px) 50%;
+    &.idnt-#{$i} .name {
+      padding-left: $table-cell-padding + 16px * ($i - 1);
     }
   }
 }
@@ -197,6 +180,13 @@ tr.issue {
     }
   }
 
+  &.idnt .subject a {
+    @extend %image-arrow-right;
+    padding-left: 10px;
+    background-repeat: no-repeat;
+    background-position: -5px 0;
+  }
+
   .controller-issues.action-index & {
     &.assigned-to-me {
       .assigned_to,
@@ -208,41 +198,18 @@ tr.issue {
     }
   }
 
-  &.idnt td.subject {
-    background-image: inline-svg("chevron-right.svg", (path: (fill: $gray-600)));
-    background-repeat: no-repeat;
-  }
-
-  &.overdue td.due_date {
-    color: $brand-danger;
-  }
-
   @for $i from 1 through 9 {
-    &.idnt-#{$i} td.subject {
-      padding-left: $table-cell-padding + 16px * $i;
-      background-position: ($table-cell-padding + 16px * ($i - 1) - 3px) 50%;
+    &.idnt-#{$i} .subject {
+      padding-left: $table-cell-padding + 16px * ($i - 1);
     }
   }
 }
 
 .issues {
-  .block_column,
   .description,
   .last_notes {
-    padding: 0;
+    padding: $table-cell-padding;
     text-align: left;
-    white-space: normal;
-
-    > span {
-      display: block;
-      margin-bottom: $line-height-computed / 4;
-      padding: $table-cell-padding;
-      font-weight: $font-weight-bold;
-    }
-
-    pre {
-      white-space: normal;
-    }
 
     @media screen and (min-width: $screen-sm-min) {
       > .wiki {
@@ -251,14 +218,18 @@ tr.issue {
         overflow: auto;
       }
     }
+
+    pre {
+      white-space: normal;
+    }
   }
 }
 
 tr {
   span.expander {
+    @extend %image-toggle-plus;
     margin-left: 0;
     padding-left: 8px;
-    background-image: inline-svg("plus.svg", (path: (fill: $btn-default-icon-color)));
     background-repeat: no-repeat;
     background-position: center center;
     cursor: pointer;
@@ -266,7 +237,7 @@ tr {
   }
 
   &.open span.expander {
-    background-image: inline-svg("minus.svg", (path: (fill: $btn-default-icon-color)));
+    @extend %image-toggle-minus;
   }
 }
 
@@ -278,32 +249,12 @@ td.center {
   table-layout: fixed;
 }
 
-.issue-report-graph {
-  width: 75%;
-  margin: $line-height-computed auto;
-}
-
-.sample-data {
-  margin: $line-height-computed / 2;
-  margin-bottom: $line-height-computed;
-  border: 1px solid $table-border-color;
-
-  td {
-    border: 1px solid $table-border-color;
-  }
-
-  tr:first-child td {
-    font-weight: $font-weight-bold;
-    text-align: center;
-  }
-}
-
 tr.builtin td.name {
   font-style: italic;
 }
 
 tr.entry {
-  border: 1px solid $gray-400;
+  border: 1px solid $gray-lighter;
 
   td {
     white-space: nowrap;
@@ -343,24 +294,14 @@ tr.entry {
 @if $table-list-color-odd-rows {
   table.list:not(.odd-even) tbody tr:nth-child(odd),
   .odd {
-    > td {
-      background-color: $table-bg-accent;
-    }
+    background-color: $table-bg-accent;
   }
 }
 
 @if $table-list-color-even-rows {
   table.list:not(.odd-even) tbody tr:nth-child(even),
   .even {
-    > td {
-      background-color: $table-bg-accent;
-    }
-  }
-}
-
-@if $table-list-highlight-rows {
-  table.list > tbody > tr:nth-child(n):hover {
-    background-color: $table-bg-hover;
+    background-color: $table-bg-accent;
   }
 }
 
@@ -368,26 +309,17 @@ tr.entry {
 //== Priorities
 //
 
-@if $priority-icon {
-  table.list tbody tr {
-    .priority {
-      @include priority-icon-base;
-    }
-  }
-
-  @each $priority-id, $priority-icon in $priority-icons-map {
-    @include priority-icon(
-      ".priority-#{$priority-id}",
-      map-get($priority-icon, color),
-      map-get($priority-icon, icon)
-    );
-  }
+@if $color-priorities {
+  // scss-lint:disable SpaceAfterComma
+  @include priority(".priority-lowest",  $priority-lowest-bg,  $priority-lowest-text,  $priority-lowest-link);
+  @include priority(".priority-default", $priority-default-bg, $priority-default-text, $priority-default-link);
+  @include priority(".priority-high3",   $priority-high3-bg,   $priority-high3-text,   $priority-high3-link);
+  @include priority(".priority-high2",   $priority-high2-bg,   $priority-high2-text,   $priority-high2-link);
+  @include priority(".priority-highest", $priority-highest-bg, $priority-highest-text, $priority-highest-link);
 }
 
 @if $color-trackers {
   tr.issue .id > a,
-  tr.issue .issue_id > a,
-  tr.issue .legacy_id > a,
   a.issue,
   .relations > span > a.issue,
   .parent > a.issue {
@@ -410,7 +342,7 @@ tr.entry {
   a.issue {
     margin-right: 1px;
     padding: $tracker-inline-padding;
-    font-weight: $font-weight-normal;
+    font-weight: normal;
 
     &.closed {
       position: relative;
@@ -424,9 +356,9 @@ tr.entry {
         right: 5px;
         bottom: 0;
         left: 5px;
-        height: calc(50% - 2px / 2);
+        height: calc(50% - 2px/2);
         transform: rotate(-4deg);
-        transition: border-color $transition-time;
+        transition: border-color .1s;
         border-top: 2px solid rgba($tracker-default-text, .95);
       }
 
@@ -436,8 +368,7 @@ tr.entry {
     }
   }
 
-  tr.issue .id > a,
-  tr.issue .legacy_id > a {
+  tr.issue .id > a {
     display: block;
     padding: $tracker-list-padding;
 
@@ -447,9 +378,14 @@ tr.entry {
     }
   }
 
-  tr.issue .issue_id > a {
-    display: inline-block;
-    padding: $tracker-list-padding;
+  @if $colored-issue {
+    .issue.details a.issue,
+    .issue.details .wiki a.issue {
+      &,
+      &:hover {
+        color: $tracker-default-text;
+      }
+    }
   }
 
   @each $tracker-id, $tracker-colors in $tracker-colors-map {
@@ -478,12 +414,24 @@ tr.group {
 
   .toggle-all {
     display: none;
-    color: $gray-600;
-    font-weight: $font-weight-normal;
+    color: $gray-light;
+    font-weight: normal;
   }
 
   &:hover .toggle-all {
     display: inline;
+  }
+
+  .count {
+    display: inline-block;
+    min-width: 1em;
+    margin: 0 5px;
+    padding: 1px 4px;
+    border-radius: $border-radius-small;
+    background-color: $brand-primary;
+    color: $brand-text;
+    font-size: $font-size-small;
+    text-align: center;
   }
 }
 
@@ -542,7 +490,7 @@ tr.time-entry {
   }
 
   tr.time-entry td.hours {
-    font-weight: $font-weight-normal;
+    font-weight: normal;
   }
 }
 
@@ -561,10 +509,10 @@ tr.wiki-page-version {
 
 tr.version {
   &.closed {
-    color: $gray-700;
+    color: $gray;
 
     a {
-      color: $gray-700;
+      color: $gray;
     }
   }
 
@@ -603,7 +551,7 @@ tr.user {
   &.registered,
   &.locked a,
   &.registered a {
-    color: $gray-600;
+    color: $gray-light;
   }
 }
 

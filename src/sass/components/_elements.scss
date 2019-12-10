@@ -25,9 +25,9 @@ a.collapsible,
     height: 0;
     margin-right: 3px;
     transform: rotate(0);
-    border-top: 6px solid;
+    border-top:   6px solid;
     border-right: 4px solid transparent;
-    border-left: 4px solid transparent;
+    border-left:  4px solid transparent;
     vertical-align: middle;
 
     @if $collapsible-animation-time > 0 {
@@ -46,12 +46,12 @@ a.collapsible.collapsed,
 @if $collapsible-animation-time > 0 {
   fieldset.collapsible {
     min-height: $line-height-computed;
-    max-height: $collapsible-max-height;
-    overflow: auto;
+    max-height: 2500px; // should be enough with all the possible filters
+    overflow: hidden;
     transition: max-height $collapsible-animation-time ease-out;
 
     > div {
-      display: block !important; // stylelint-disable-line declaration-no-important
+      display: block !important; // scss-lint:disable ImportantRule
       visibility: visible;
       transition: visibility 0s 0s, opacity $collapsible-animation-time;
       opacity: 1;
@@ -59,7 +59,6 @@ a.collapsible.collapsed,
 
     &.collapsed {
       max-height: 0;
-      overflow: hidden;
       transition: max-height $collapsible-animation-time;
 
       > div {
@@ -91,6 +90,15 @@ a.collapsible.collapsed,
   select {
     font-size: .9em;
   }
+
+  a {
+    display: inline-block;
+    white-space: nowrap;
+
+    &:not(:first-child) {
+      margin-left: $padding-small-vertical;
+    }
+  }
 }
 
 
@@ -98,30 +106,14 @@ a.collapsible.collapsed,
 //
 
 .hidden-for-sighted {
-  // stylelint-disable declaration-no-important
-  position: absolute !important;
-  top: auto !important;
-  left: -10000px !important;
-  width: 1px !important;
-  height: 1px !important;
-  overflow: hidden !important;
-  // stylelint-enable declaration-no-important
-}
-
-img {
-  image-orientation: from-image;
-}
-
-.filecontent-container {
-  position: relative;
-  min-height: 200px;
-  margin-bottom: 20px;
-}
-.filecontent-container > .filecontent {
   position: absolute;
-  max-width: 100%;
-  max-height: 100%;
+  top: auto;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
+
 
 //== Responsive autoscroll
 //
@@ -152,7 +144,7 @@ img {
   }
 
   &:last-child,
-  > :last-child {
+  >:last-child {
     margin-bottom: 0;
   }
 
@@ -190,6 +182,20 @@ img {
 }
 
 
+//== Watchers selection list
+//
+
+#users_for_watcher {
+  height: 200px;
+  overflow: auto;
+
+  label {
+    @include checkbox;
+    display: block;
+  }
+}
+
+
 //== Watchers list
 //
 
@@ -211,48 +217,29 @@ img {
         padding-left: $sidebar-padding-horizontal;
       }
 
-      > a:not(.icon-only) {
+      > a {
         display: inline;
         padding: 0;
         background: transparent;
       }
 
-      > .icon-only {
-        &::before {
-          line-height: inherit;
-        }
-      }
-
       > .delete {
         float: right;
-        opacity: $icon-opacity;
+        opacity: .5;
+        vertical-align: middle;
 
         &:hover {
-          opacity: $icon-hover-opacity;
+          opacity: 1;
         }
       }
 
       img.gravatar {
+        position: relative;
+        top: 1px;
         margin-right: .5em;
+        vertical-align: top;
       }
     }
-  }
-}
-
-
-//== Users selection list
-//
-
-#principals {
-  label {
-    @include check;
-    display: block;
-  }
-}
-
-.roles-selection {
-  label {
-    @include check-inline;
   }
 }
 
@@ -279,7 +266,7 @@ p.subtitle {
   margin: $padding-side / -2;
   margin-bottom: $line-height-computed;
   padding: $padding-side / 2;
-  outline: 2px dashed $gray-600;
+  outline: 2px dashed $gray-light;
 }
 
 .mypage-box {
@@ -291,15 +278,15 @@ p.subtitle {
 
   &.ui-sortable-handle {
     overflow: hidden;
-    outline: 1px solid $gray-400;
+    outline: 1px solid $gray-lighter;
 
     &:hover {
-      outline: 1px solid $gray-600;
+      outline: 1px solid $gray-light;
     }
   }
 
   &.ui-sortable-placeholder {
-    visibility: visible !important; // stylelint-disable-line declaration-no-important
+    visibility: visible !important; // scss-lint:disable ImportantRule
     outline: 1px dashed $highlight-border;
     background: $highlight-bg;
   }
@@ -344,12 +331,12 @@ a.close-icon {
     margin: $padding-side / -2;
     margin-bottom: $line-height-computed;
     padding: $padding-side / 2;
-    outline: 2px dashed $gray-600;
+    outline: 2px dashed $gray-light;
   }
 
   .mypage-box {
     > .contextual {
-      transition: opacity $transition-time;
+      transition: opacity .2s;
       opacity: 0;
     }
 
@@ -398,7 +385,7 @@ a.close-icon {
   th.line-num {
     border-color: darken($body-bg, 10%);
     background-color: darken($body-bg, 5%);
-    color: $gray-700;
+    color: $gray;
   }
 
   th.line-num,
@@ -492,7 +479,7 @@ ul.projects {
   }
 
   ul.projects {
-    border-left: 2px solid $gray-400;
+    border-left: 2px solid $gray-lighter;
   }
 
   li.root {
@@ -508,7 +495,7 @@ ul.projects {
     font-weight: $font-weight-bold;
 
     &.child {
-      font-weight: $font-weight-normal;
+      font-weight: normal;
     }
   }
 }
@@ -542,11 +529,11 @@ ul.projects {
 
   tbody tr {
     &.subtotal {
-      color: $gray-700;
+      color: $gray;
       font-style: italic;
 
       td.hours {
-        color: $gray-600;
+        color: $gray-light;
       }
     }
 
@@ -579,39 +566,23 @@ ul.projects {
 //
 
 div#roadmap {
-  article {
-    margin-bottom: $line-height-computed;
-  }
-
   .related-issues {
     margin-bottom: $line-height-computed;
 
     td.checkbox {
       display: none;
     }
-
-    td.assigned_to {
-      width: 1px;
-      padding-right: 0;
-      white-space: nowrap;
-    }
   }
 
   table.progress {
     td {
-      height: $progress-height;
+      height: 16px;
     }
 
     + .percent {
       position: relative;
-      top: 0;
+      top: 2px;
     }
-  }
-
-  header > h3,
-  h3.version {
-    margin-bottom: 0;
-    padding-right: 0;
   }
 
   .wiki {
@@ -691,7 +662,7 @@ div#version-summary {
 
 tr.message {
   &.locked {
-    color: $gray-700;
+    color: $gray;
   }
 
   &.sticky td.subject {
@@ -745,20 +716,20 @@ div.table-list.boards {
   }
 
   .message {
-    border: 1px solid $gray-400;
+    border: 1px solid $gray-lighter;
     border-radius: $panel-border-radius;
-    background: $gray-100;
+    background: $gray-lightest;
 
     > h4,
     > p {
       margin-bottom: 0;
       padding: $bubble-padding-vertical $bubble-padding-horizontal;
-      border-bottom: 1px solid mix($gray-400, $gray-100, 50%);
-      color: $gray-700;
+      border-bottom: 1px solid mix($gray-lighter, $gray-lightest, 50%);
+      color: $gray;
       font-size: $font-size-list;
 
       a {
-        color: $gray-900;
+        color: $gray-darker;
 
         &.user {
           font-weight: $font-weight-bold;
@@ -775,8 +746,13 @@ div.table-list.boards {
     .contextual {
       position: relative;
       z-index: 1;
-      margin-top: $padding-small-vertical;
       margin-right: $bubble-padding-vertical;
+
+      @if $use-font-awesome {
+        margin-top: $padding-small-vertical;
+      } @else {
+        margin-top: $bubble-padding-vertical;
+      }
 
       a {
         margin-left: ceil($bubble-padding-vertical / 2);
@@ -840,53 +816,13 @@ div.table-list.boards {
 //== News
 //
 
-.news.box {
-  p > a:not(:last-child) {
-    display: inline-block;
-    margin-bottom: floor($line-height-computed / 4);
-    font-size: $font-size-h4;
-  }
-
-  .summary,
-  .author {
-    display: block;
-    margin-bottom: floor($line-height-computed / 4);
-
-    + br {
-      display: none;
-    }
-  }
-
-  .author {
-    margin-bottom: $line-height-computed;
-  }
-}
-
-#edit-news + p {
-  em {
-    display: block;
-    margin-bottom: floor($line-height-computed / 4);
-
-    + br {
-      display: none;
-    }
-  }
-}
-
-.news.box .summary,
-#edit-news + p em {
-  padding: floor($line-height-computed / 4) $padding-base-horizontal;
-  border-left: 4px solid $blockquote-border-color;
-}
-
 .news-article {
   margin-bottom: $line-height-computed;
-  padding-top: $line-height-computed;
-  border-top: 1px solid $panel-border;
 
   header {
     h3 {
-      margin-bottom: $line-height-computed / 2;
+      margin-bottom: .3em;
+      line-height: 1.2;
 
       > a {
         font-weight: $font-weight-bold;
@@ -895,12 +831,8 @@ div.table-list.boards {
   }
 }
 
-.author {
-  color: $gray-700;
-
-  .user {
-    font-weight: $font-weight-bold;
-  }
+.author .user {
+  font-weight: $font-weight-bold;
 }
 
 
@@ -933,7 +865,6 @@ div.table-list.boards {
   border-radius: $panel-border-radius;
   background: $body-bg;
   color: $panel-color;
-  font-family: $font-family-monospace;
 }
 
 .diff_out {
@@ -948,16 +879,6 @@ div.table-list.boards {
   background: $diff-in-bg-light;
 
   span {
-    background: $diff-in-bg;
-  }
-}
-
-.text-diff {
-  .diff_out {
-    background: $diff-out-bg;
-  }
-
-  .diff_in {
     background: $diff-in-bg;
   }
 }
@@ -984,12 +905,18 @@ div.table-list.boards {
 
   li > a {
     margin-left: .5em;
+
+    @if $use-font-awesome == false {
+      img {
+        vertical-align: middle;
+      }
+    }
   }
 }
 
 ul.properties {
   padding: 0;
-  color: $gray-700;
+  color: $gray;
   font-size: $font-size-small;
 
   li {
@@ -1034,58 +961,47 @@ tr.changeset {
   font-size: 1em;
 
   .change {
-    margin-left: 8px;
+    background-position: 5px center;
   }
+
+  .change-A { color: $changeset-add-color; }
+  .change-M { color: $changeset-modified-color; }
+  .change-C { color: $changeset-copied-color; }
+  .change-R { color: $changeset-renamed-color; }
+  .change-D { color: $changeset-deleted-color; }
 }
 
 .changeset-changes {
   .change {
-    margin-top: $table-condensed-cell-padding;
-    color: $gray-800;
-  }
-}
+    padding-top: $table-condensed-cell-padding;
+    color: $gray-dark;
 
-#changes-legend > li.change,
-.changeset-changes ul > li.change {
-  padding-left: 18px;
-  background: transparent;
-  background-repeat: no-repeat;
-  background-position: 0 center;
-
-  &.folder {
-    @extend %fa-icon;
-
-    &::before {
-      content: $fa-var-folder;
-      top: 0;
-      margin-right: 0;
-      margin-left: -18px;
-      font-size: 1em;
-    }
-
-    &.change-A::before,
-    &.change-M::before {
-      content: $fa-var-folder-open;
+    a {
+      @include link-variant($gray-dark);
     }
   }
 
-  &.change-A {
-    background-image: inline-svg("diff-added.svg", (path: (fill: $changeset-added-color)));
+  .change-A {
+    &::before { color: $changeset-add-color; }
+    a { @include link-variant($changeset-add-color); }
   }
 
-  &.change-M {
-    background-image: inline-svg("diff-modified.svg", (path: (fill: $changeset-modified-color)));
+  .change-M {
+    &::before { color: $changeset-modified-color; }
+    a { @include link-variant($changeset-modified-color); }
   }
 
-  &.change-C {
-    background-image: inline-svg("diff-copied.svg", (path: (fill: $changeset-copied-color)));
+  .change-C {
+    &::before { color: $changeset-copied-color; }
+    a { @include link-variant($changeset-copied-color); }
   }
 
-  &.change-R {
-    background-image: inline-svg("diff-renamed.svg", (path: (fill: $changeset-renamed-color)));
+  .change-R {
+    &::before { color: $changeset-renamed-color; }
+    a { @include link-variant($changeset-renamed-color); }
   }
 
-  &.change-D {
-    background-image: inline-svg("diff-deleted.svg", (path: (fill: $changeset-deleted-color)));
+  .change-D {
+    color: $changeset-deleted-color;
   }
 }

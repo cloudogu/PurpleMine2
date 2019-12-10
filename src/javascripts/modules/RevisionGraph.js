@@ -1,5 +1,8 @@
-var PurpleMine = PurpleMine || {} // eslint-disable-line no-use-before-define
+var PurpleMine = PurpleMine || {}
 /* global Raphael: false, revisionGraph: true */
+/* jshint camelcase: false */
+/* jshint maxstatements: false */
+/* jshint maxlen: 160 */
 
 PurpleMine.RevisionGraph = function (holder, commitsHash, graphSpace) {
   'use strict'
@@ -52,7 +55,6 @@ PurpleMine.RevisionGraph = function (holder, commitsHash, graphSpace) {
   var revisionDotOverlay
 
   $.each(commits, function (index, commit) {
-    // eslint-disable-next-line no-prototype-builtins
     if (!commit.hasOwnProperty('space')) {
       commit.space = 0
     }
@@ -73,7 +75,6 @@ PurpleMine.RevisionGraph = function (holder, commitsHash, graphSpace) {
       parentCommit = commitsByScmid[parentScmid]
 
       if (parentCommit) {
-        // eslint-disable-next-line no-prototype-builtins
         if (!parentCommit.hasOwnProperty('space')) {
           parentCommit.space = 0
         }

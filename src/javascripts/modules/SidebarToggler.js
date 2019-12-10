@@ -1,4 +1,4 @@
-var PurpleMine = PurpleMine || {} // eslint-disable-line no-use-before-define
+var PurpleMine = PurpleMine || {}
 
 PurpleMine.SidebarToggler = (function () {
   'use strict'
@@ -7,12 +7,6 @@ PurpleMine.SidebarToggler = (function () {
   var translations = {
     en: {
       toggler: 'Toggle sidebar'
-    },
-    ro: {
-      toggler: 'Deschide/închide bara laterală'
-    },
-    fr: {
-      toggler: 'Basculer la barre latérale'
     },
     pl: {
       toggler: 'Pokaż/ukryj panel boczny'
