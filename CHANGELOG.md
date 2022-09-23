@@ -1,4 +1,4 @@
-## Unreleased
+## [v2.15.0-1](https://github.com/cloudogu/PurpleMine2/releases/tag/v2.15.0-1) - 2022-09-23
 
 ### Updates
 
