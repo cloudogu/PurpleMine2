@@ -1,3 +1,13 @@
+## Unreleased
+
+### Updates
+
+- PurpleMine 2 Theme updated to v2.15.0
+
+### Changes
+
+- Set default font size to 14px (#7)
+
 v2.15.0 (2021-05-23):
 
 * Updated styles for Redmine 4.2.
@@ -63,6 +73,7 @@ v2.10.0 (2020-04-05):
 * Changed lightness of shades 50 and 950.
 * Changed loader styles.
 * Changed rouge syntax highlighter color scheme.
+
 
 ## [v2.9.1-1](https://github.com/cloudogu/PurpleMine2/releases/tag/v2.9.1-1) - 2020-03-18
 
