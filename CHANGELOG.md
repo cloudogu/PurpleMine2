@@ -1,3 +1,7 @@
+## [v2.15.0-2](https://github.com/cloudogu/PurpleMine2/releases/tag/v2.15.0-2) - 2022-10-13
+### Changes
+- Update high prio agile card colour to yellow (#9)
+
 ## [v2.15.0-1](https://github.com/cloudogu/PurpleMine2/releases/tag/v2.15.0-1) - 2022-09-23
 
 ### Updates
