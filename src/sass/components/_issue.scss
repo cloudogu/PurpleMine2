@@ -2,6 +2,49 @@
 // Issue page
 // --------------------------------------------------
 
+.content > h2 {
+  display: inline-block;
+  margin-right: .5rem;
+}
+.issue.details {
+  display: grid;
+  grid-template-columns: 3rem auto;
+  align-items: center;
+  gap: 15px;
+}
+.issue.details > * {
+  grid-column: 1 / -1;
+}
+.issue.details > .avatar-with-child {
+  grid-column: 1;
+}
+.issue.details > div[data-controller="sticky-issue-header"] {
+  grid-column: 2;
+}
+.reaction {
+  display: none;
+}
+.author {
+  margin: 0;
+  padding: 0;
+}
+
+.subject[data-sticky-issue-header-target="original"] {
+  display: none;
+}
+
+.attachments_fields .svg-attachment {
+  display: none;
+}
+
+svg.s12.icon-svg:has(use[href="/redmine/assets/icons-64cb2f36.svg#icon--add"]) {
+  display: none;
+}
+
+span#watchers_inputs {
+  display: none;
+}
+
 .issue {
   @if not $clean-issues {
     &.details {
