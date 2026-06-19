@@ -2,6 +2,9 @@
 .mobile-show {
   display: none;
 }
+input.mobile-hide[name="commit"] {
+  display: none;
+}
 
 .inline-flex {
   display: inline-flex;

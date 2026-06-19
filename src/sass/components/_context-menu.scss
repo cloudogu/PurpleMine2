@@ -8,6 +8,17 @@
   }
 
   #context-menu {
+
+    svg.icon-svg {
+      stroke: currentColor;
+      fill: none;
+    }
+
+    a.icon {
+      display: flex;
+      align-items: center;
+    }
+
     > ul,
     > ul > li > ul {
       @include nice-shadow(2);
