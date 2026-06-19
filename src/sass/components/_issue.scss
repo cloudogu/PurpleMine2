@@ -41,6 +41,10 @@ svg.s12.icon-svg:has(use[href="/redmine/assets/icons-64cb2f36.svg#icon--add"]) {
   display: none;
 }
 
+svg.s12.icon-svg:has(use[href="/redmine/assets/icons-64cb2f36.svg#icon--attachment"]) {
+  display: none;
+}
+
 span#watchers_inputs {
   display: none;
 }
