@@ -2,6 +2,11 @@
 // Issue page
 // --------------------------------------------------
 
+.badge {
+  margin-right: 0;
+  margin-bottom: 5px;
+  margin-left: 0;
+}
 .content > h2 {
   display: inline-block;
   margin-right: .5rem;
@@ -29,8 +34,14 @@
   padding: 0;
 }
 
-.subject[data-sticky-issue-header-target="original"] {
+div#sticky-issue-header {
   display: none;
+}
+
+.next-prev-links.contextual {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
 }
 
 .attachments_fields .svg-attachment {
